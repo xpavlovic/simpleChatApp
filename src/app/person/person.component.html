@@ -1,0 +1,22 @@
+<div class="container">
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Person {{ personNumber }}</mat-label>
+    <textarea
+      matInput
+      placeholder="Enter your message here..."
+      [formControl]="message"
+      #newMessage
+    ></textarea>
+  </mat-form-field>
+  <div class="btn">
+    <button
+      mat-raised-button
+      [disabled]="!message.valid"
+      (click)="sendNewMessage(newMessage.value)"
+    >
+      >&nbsp;&nbsp;&nbsp;&nbsp; Send
+    </button>
+  </div>
+</div>
+
+<p *ngIf="message.valid">Message: {{ message.value }}</p>
