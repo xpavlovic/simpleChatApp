@@ -1,26 +1,36 @@
-<h3>Material Design</h3>
-<h1>Simple Chat Application</h1>
-
-<button mat-raised-button color="primary" (click)="addPerson()">
-  +&nbsp;&nbsp;&nbsp;&nbsp; Add new person
-</button>
-<div *ngFor="let person of people; let i = index">
-  <app-person
-    [personNumber]="i + 1"
-    (newMessage)="addMessage($event)"
-  ></app-person>
-</div>
-
-<mat-list *ngIf="chatWindow">
-  <div mat-subheader>Chat Window</div>
-  <div class="chat">
-    <mat-list-item *ngFor="let message of messages">
-      <mat-icon mat-list-icon>bookmark</mat-icon>
-      <div mat-line>Person</div>
-      <div mat-line>{{ message }}</div>
-    </mat-list-item>
-    <button mat-raised-button color="primary" (click)="clearChatWindow()">
-      x&nbsp;&nbsp;&nbsp;&nbsp; clear chat window
+<div class="container">
+  <div class="item1">
+    <h3>Material Design</h3>
+    <h1>Simple Chat Application</h1>
+  </div>
+  <div class="item2">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addNewPerson()"
+      id="addPerson"
+    >
+      +&nbsp;&nbsp;&nbsp;&nbsp; Add new person
     </button>
   </div>
-</mat-list>
+  <div *ngFor="let person of people; let i = index" class="item3">
+    <div class="subitem">
+      <app-person></app-person>
+    </div>
+  </div>
+  <div class="item4">
+    <mat-list>
+      <div mat-subheader>Chat Window</div>
+      <div class="chat">
+        <mat-list-item *ngFor="let message of messages">
+          <mat-icon mat-list-icon>bookmark</mat-icon>
+          <div mat-line>Person</div>
+          <div mat-line>{{ message }}</div>
+        </mat-list-item>
+        <button mat-raised-button color="primary" (click)="clearChatWindow()">
+          x&nbsp;&nbsp;&nbsp;&nbsp; clear chat window
+        </button>
+      </div>
+    </mat-list>
+  </div>
+</div>

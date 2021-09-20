@@ -1,6 +1,6 @@
 <div class="container">
   <mat-form-field appearance="outline" floatLabel="always">
-    <mat-label>Person {{ personNumber }}</mat-label>
+    <mat-label>Person</mat-label>
     <textarea
       matInput
       placeholder="Enter your message here..."
@@ -12,11 +12,11 @@
     <button
       mat-raised-button
       [disabled]="!message.valid"
-      (click)="sendNewMessage(newMessage.value)"
+      (click)="sendNewMessage()"
     >
       >&nbsp;&nbsp;&nbsp;&nbsp; Send
     </button>
   </div>
 </div>
 
-<p *ngIf="message.valid">Message: {{ message.value }}</p>
+<!--<p *ngIf="message.valid">Message: {{ message.value }}</p>-->
