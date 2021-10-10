@@ -8,13 +8,10 @@ export class MessageService {
   subject = new Subject();
 
   sendMessage(message: string) {
-    // it is used to publish data
     this.subject.next(message);
   }
 
   readMessage() {
-    // asObservable helps us to prevent the
-    // leaks of Observable from outside of the subject
     return this.subject.asObservable();
   }
 

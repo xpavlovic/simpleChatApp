@@ -2,12 +2,13 @@
   display: block;
 }
 .btn {
-  margin-left: 6%;
+  margin-left: 30%;
+  width: 100%;
 }
 .mat-raised-button {
   border-radius: 25px;
   background-color: rgb(14, 224, 224);
-  padding: 0.4%;
-  width: 7%;
+  padding: 0.8%;
+  width: 35%;
   text-transform: uppercase;
 }

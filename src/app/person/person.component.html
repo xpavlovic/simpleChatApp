@@ -1,17 +1,17 @@
 <div class="container">
   <mat-form-field appearance="outline" floatLabel="always">
-    <mat-label>Person</mat-label>
+    <mat-label #personLabel>{{ person.name }}</mat-label>
     <textarea
       matInput
       placeholder="Enter your message here..."
-      [formControl]="message"
+      [formControl]="msg"
       #newMessage
     ></textarea>
   </mat-form-field>
   <div class="btn">
     <button
       mat-raised-button
-      [disabled]="!message.valid"
+      [disabled]="!msg.valid"
       (click)="sendNewMessage()"
     >
       >&nbsp;&nbsp;&nbsp;&nbsp; Send

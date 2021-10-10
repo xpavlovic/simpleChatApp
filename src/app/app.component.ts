@@ -1,5 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+  Inject,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+} from '@angular/core';
 import { MessageService } from './message.service';
+import { People, Person } from './person';
+import { PersonComponent } from './person/person.component';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +19,24 @@ import { MessageService } from './message.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  //chatWindow: boolean = true;
+  @ViewChild('subgrid', { static: false, read: ViewContainerRef })
+  target!: ViewContainerRef;
+  private componentRef!: ComponentRef<any>;
 
   people: Array<any> = [];
+  person = {
+    message: [''],
+    name: [''],
+  };
+  c: number = 0;
+  appendPerson: boolean = false;
   messages: Array<string> = [];
-  //numberOfPeople = 0;
 
   subscription: any;
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private resolver: ComponentFactoryResolver
+  ) {}
 
   ngOnInit() {
     this.subscription = this.messageService
@@ -25,22 +47,30 @@ export class AppComponent implements OnInit {
   }
 
   addNewPerson() {
-    if (this.people.length !== 9) {
-      this.people = [...this.people, this.people.length + 1];
-      console.log('====================================');
-      console.log(this.people.indexOf(this.people.length));
-      console.log('====================================');
-
-      //this.numberOfPeople += 1;
-      //this.messageService.addPerson('Person ' + String(this.numberOfPeople));
-
-      //this.people.push('Person' + String(numberOfPeople));
+    this.appendPerson = true;
+    let childComponent = this.resolver.resolveComponentFactory(PersonComponent);
+    if (this.c < 8) {
+      this.componentRef = this.target.createComponent(childComponent);
+      this.c++;
+      /*
+      this.person.name.push('Person ' + String(this.c + 1));
+      this.person.message.push('');
+      this.messageService.sendMessage(this.person.name[this.c]);
+      this.people.push(this.person);
+      console.log(this.person);
+      */
     }
   }
 
   clearChatWindow() {
     //this.chatWindow = !this.chatWindow;
     //this.messageService.clearMessages();
+    /*
+    for (let index = 0; index < people.length; index++) {
+      this.people[index] = [];
+    }
+    */
+    //this.people = [];
     this.messages = [];
   }
 

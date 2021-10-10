@@ -13,21 +13,26 @@
       +&nbsp;&nbsp;&nbsp;&nbsp; Add new person
     </button>
   </div>
-  <div *ngFor="let person of people; let i = index" class="item3">
-    <div class="subitem">
-      <app-person></app-person>
+  <div class="subgrid">
+    <div *ngIf="appendPerson" #subgrid id="subDiv">
+      <app-person class="items"></app-person>
     </div>
   </div>
   <div class="item4">
     <mat-list>
       <div mat-subheader>Chat Window</div>
       <div class="chat">
-        <mat-list-item *ngFor="let message of messages">
+        <mat-list-item *ngFor="let message of messages; let i = index">
           <mat-icon mat-list-icon>bookmark</mat-icon>
           <div mat-line>Person</div>
           <div mat-line>{{ message }}</div>
         </mat-list-item>
-        <button mat-raised-button color="primary" (click)="clearChatWindow()">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="clearChatWindow()"
+          id="clearChat"
+        >
           x&nbsp;&nbsp;&nbsp;&nbsp; clear chat window
         </button>
       </div>
