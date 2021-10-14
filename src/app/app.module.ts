@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PersonComponent } from './person/person.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { PersonData } from './personData';
 
 @NgModule({
   declarations: [AppComponent, PersonComponent],

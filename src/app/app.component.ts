@@ -10,7 +10,7 @@ import {
   ComponentRef,
 } from '@angular/core';
 import { MessageService } from './message.service';
-import { People, Person } from './person';
+import { PersonData } from './personData';
 import { PersonComponent } from './person/person.component';
 
 @Component({
@@ -23,55 +23,49 @@ export class AppComponent implements OnInit {
   target!: ViewContainerRef;
   private componentRef!: ComponentRef<any>;
 
-  people: Array<any> = [];
-  person = {
-    message: [''],
-    name: [''],
-  };
-  c: number = 0;
+  person!: PersonData;
+  numberOfPeople: number = 1;
   appendPerson: boolean = false;
   messages: Array<string> = [];
 
   subscription: any;
   constructor(
-    private messageService: MessageService,
+    public messageService: MessageService,
     private resolver: ComponentFactoryResolver
   ) {}
 
   ngOnInit() {
-    this.subscription = this.messageService
-      .readMessage()
-      .subscribe((message) => {
-        this.messages.push(String(message));
-      });
+    this.messageService.readMessage().subscribe((data) => (this.person = data));
+    this.person = this.person;
+    console.log('ngOnInit in the APP COMPONENT\n');
+    console.log(this.person);
+
+    //this.people.push(data);
   }
 
   addNewPerson() {
     this.appendPerson = true;
     let childComponent = this.resolver.resolveComponentFactory(PersonComponent);
-    if (this.c < 8) {
+
+    let newPerson = new PersonData(0, '', '');
+
+    if (this.numberOfPeople < 9) {
+      newPerson.setId = this.numberOfPeople;
+      console.log('new id is:');
+      console.log(newPerson.getId);
+      newPerson.setName = 'Person ' + String(this.numberOfPeople + 1);
+
       this.componentRef = this.target.createComponent(childComponent);
-      this.c++;
-      /*
-      this.person.name.push('Person ' + String(this.c + 1));
-      this.person.message.push('');
-      this.messageService.sendMessage(this.person.name[this.c]);
-      this.people.push(this.person);
-      console.log(this.person);
-      */
+
+      this.messageService.sendPerson(newPerson);
+
+      console.log(newPerson);
+      this.numberOfPeople++;
     }
   }
 
   clearChatWindow() {
-    //this.chatWindow = !this.chatWindow;
-    //this.messageService.clearMessages();
-    /*
-    for (let index = 0; index < people.length; index++) {
-      this.people[index] = [];
-    }
-    */
-    //this.people = [];
-    this.messages = [];
+    this.messageService.clearMessages();
   }
 
   ngOnDestroy() {

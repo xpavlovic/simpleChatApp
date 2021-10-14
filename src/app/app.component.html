@@ -22,10 +22,13 @@
     <mat-list>
       <div mat-subheader>Chat Window</div>
       <div class="chat">
-        <mat-list-item *ngFor="let message of messages; let i = index">
+        <mat-list-item *ngFor="let prsn of messageService.people">
           <mat-icon mat-list-icon>bookmark</mat-icon>
-          <div mat-line>Person</div>
-          <div mat-line>{{ message }}</div>
+          <div mat-line>{{ prsn.getName }}</div>
+
+          <div mat-line>
+            {{ prsn.getMessages }}
+          </div>
         </mat-list-item>
         <button
           mat-raised-button
