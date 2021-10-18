@@ -2,32 +2,27 @@
   <div class="item1">
     <h3>Material Design</h3>
     <h1>Simple Chat Application</h1>
-  </div>
-  <div class="item2">
+
     <button
       mat-raised-button
       color="primary"
       (click)="addNewPerson()"
       id="addPerson"
     >
-      +&nbsp;&nbsp;&nbsp;&nbsp; Add new person
+      <span id="separator">+</span> Add new person
     </button>
   </div>
-  <div class="subgrid">
-    <div *ngIf="appendPerson" #subgrid id="subDiv">
-      <app-person class="items"></app-person>
-    </div>
-  </div>
-  <div class="item4">
+
+  <div class="item2">
     <mat-list>
       <div mat-subheader>Chat Window</div>
       <div class="chat">
-        <mat-list-item *ngFor="let prsn of messageService.people">
+        <mat-list-item *ngFor="let message of messageService.messages">
           <mat-icon mat-list-icon>bookmark</mat-icon>
-          <div mat-line>{{ prsn.getName }}</div>
+          <div mat-line>{{ message.getName }}</div>
 
           <div mat-line>
-            {{ prsn.getMessages }}
+            {{ message.getMessages }}
           </div>
         </mat-list-item>
         <button
@@ -36,9 +31,17 @@
           (click)="clearChatWindow()"
           id="clearChat"
         >
-          x&nbsp;&nbsp;&nbsp;&nbsp; clear chat window
+          <span id="separator">x</span> clear chat window
         </button>
       </div>
     </mat-list>
+
+    <div class="subgrid">
+      <app-person
+        *ngFor="let person of people"
+        [name]="person.getName"
+        class="items"
+      ></app-person>
+    </div>
   </div>
 </div>

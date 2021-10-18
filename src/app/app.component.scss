@@ -1,0 +1,56 @@
+@mixin button() {
+  border-radius: 25px;
+  text-transform: uppercase;
+  padding: 0.3%;
+  width: 20%;
+  #separator {
+    padding-left: 0%;
+    padding-right: 3%;
+  }
+}
+
+.container {
+  margin-top: 2%;
+  margin-left: 3%;
+  .item1 {
+    border-bottom: 1px solid black;
+    width: 100%;
+    display: inline-block;
+    button {
+      @include button;
+      float: right;
+      margin-bottom: 1%;
+      margin-right: 2%;
+    }
+  }
+  .item2 {
+    display: inline-block;
+    width: 100%;
+    .subgrid {
+      margin-top: 3%;
+      display: grid;
+      grid-template: repeat(3, auto) / repeat(3, auto);
+      grid-auto-flow: column;
+    }
+    .mat-list {
+      float: right;
+      width: 35%;
+
+      .chat {
+        height: 600px;
+        box-shadow: 5px 10px 18px #888888;
+        margin-bottom: 10%;
+        margin-right: 5%;
+        position: relative;
+
+        button {
+          @include button();
+          width: 60%;
+          position: absolute;
+          right: 3%;
+          bottom: 2%;
+        }
+      }
+    }
+  }
+}

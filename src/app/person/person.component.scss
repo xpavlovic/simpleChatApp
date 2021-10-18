@@ -1,0 +1,16 @@
+.container {
+  display: block;
+
+  .btn {
+    margin-left: 15%;
+    width: 100%;
+
+    .mat-raised-button {
+      border-radius: 25px;
+      background-color: rgb(14, 224, 224);
+      padding: 0.8%;
+      width: 30%;
+      text-transform: uppercase;
+    }
+  }
+}

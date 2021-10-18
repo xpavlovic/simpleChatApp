@@ -5,45 +5,30 @@ import { PersonData } from './personData';
   providedIn: 'root',
 })
 export class MessageService {
-  //messages: Array<string> = [];
-  people: Array<PersonData> = [];
-  personData = new BehaviorSubject(new PersonData(0, 'Person 1', ''));
-  //share = this.personData.asObservable();
-  //this.people.push(this.personData);
+  conversation: BehaviorSubject<PersonData[]> = new BehaviorSubject<
+    PersonData[]
+  >([]);
+  messages: Array<PersonData> = [];
 
-  sendMessage(person: PersonData, id: number) {
-    /*
-    for (let i = 0; i < people.length; i++) {
-      const element = array[i];
-      
-    }
-    */
-    if (person.getId === id) {
-      this.personData.next(person);
-      this.people.push(person);
-      //this.messages.push(person.getMessages);
-      console.log('PEOPLE ARRAY CONTAINS: \n');
-      console.log(this.people);
-    }
+  conversations = this.conversation.asObservable();
+
+  sendMessage(newMessage: PersonData) {
+    console.log('new message from app.component');
+    console.log(newMessage);
+    this.messages.push(newMessage);
+    this.conversation.next(Object.assign([], this.messages));
   }
 
   sendPerson(person: PersonData) {
-    this.personData.next(person);
+    this.conversation.next(Object.assign([], person));
     //this.people.push(person);
   }
 
   readMessage() {
-    //this.messages.push(this.personData.message)
-
-    //for (const person of people) {
-
-    //}
-    return this.personData.asObservable();
+    return this.conversations;
   }
 
   clearMessages() {
-    this.people = [];
-    //this.messages = [];
+    this.messages = [];
   }
-  //constructor() { }
 }

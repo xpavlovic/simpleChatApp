@@ -1,67 +1,34 @@
-import {
-  Component,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  AfterViewInit,
-  Inject,
-  ViewContainerRef,
-  ComponentFactoryResolver,
-  ComponentRef,
-} from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MessageService } from './message.service';
 import { PersonData } from './personData';
+import { Observable } from 'rxjs';
 import { PersonComponent } from './person/person.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  @ViewChild('subgrid', { static: false, read: ViewContainerRef })
-  target!: ViewContainerRef;
-  private componentRef!: ComponentRef<any>;
-
-  person!: PersonData;
-  numberOfPeople: number = 1;
-  appendPerson: boolean = false;
-  messages: Array<string> = [];
+  person!: Observable<PersonData[]>;
+  people: Array<any> = [];
 
   subscription: any;
-  constructor(
-    public messageService: MessageService,
-    private resolver: ComponentFactoryResolver
-  ) {}
+  constructor(public messageService: MessageService) {}
 
   ngOnInit() {
-    this.messageService.readMessage().subscribe((data) => (this.person = data));
-    this.person = this.person;
-    console.log('ngOnInit in the APP COMPONENT\n');
-    console.log(this.person);
-
-    //this.people.push(data);
+    this.person = this.messageService.readMessage();
   }
 
   addNewPerson() {
-    this.appendPerson = true;
-    let childComponent = this.resolver.resolveComponentFactory(PersonComponent);
+    if (this.people.length === 9) return;
 
     let newPerson = new PersonData(0, '', '');
-
-    if (this.numberOfPeople < 9) {
-      newPerson.setId = this.numberOfPeople;
-      console.log('new id is:');
-      console.log(newPerson.getId);
-      newPerson.setName = 'Person ' + String(this.numberOfPeople + 1);
-
-      this.componentRef = this.target.createComponent(childComponent);
-
-      this.messageService.sendPerson(newPerson);
-
-      console.log(newPerson);
-      this.numberOfPeople++;
-    }
+    newPerson.setId = this.people.length;
+    newPerson.setName = 'Person ' + this.people.length.toString();
+    this.people.push(newPerson);
+    console.log(this.people);
+    this.messageService.sendPerson(newPerson);
   }
 
   clearChatWindow() {

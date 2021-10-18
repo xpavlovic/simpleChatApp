@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MessageService } from '../message.service';
 import { PersonData } from '../personData';
@@ -6,21 +6,14 @@ import { PersonData } from '../personData';
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
-  styleUrls: ['./person.component.css'],
+  styleUrls: ['./person.component.scss'],
 })
 export class PersonComponent implements OnInit {
+  @Input() name = '';
   msg = new FormControl('', [Validators.required]);
-  subscription: any;
-  prsnName = '';
-  person!: PersonData;
-  /*
-  c: number = 1;
-  person: Person = {
-    message: this.msg.value,
-    name: 'Person 1',
-  };
-  */
-  //subscription: any;
+
+  personMessage: PersonData = new PersonData(0, '', '');
+
   constructor(public messageService: MessageService) {}
 
   //clear text when user sends the message
@@ -29,20 +22,12 @@ export class PersonComponent implements OnInit {
   }
 
   sendNewMessage() {
-    this.person.setMessage = String(this.msg.value);
-    this.messageService.sendMessage(this.person, this.person.getId);
-    console.log('senNewMessage from PERSON COMPONENT');
-    console.log(this.person);
+    this.personMessage.setMessage = this.msg.value;
+    this.personMessage.setName = this.name;
+    this.messageService.sendMessage(this.personMessage);
+
     this.clearText();
   }
 
-  ngOnInit() {
-    this.messageService.readMessage().subscribe((data) => (this.person = data));
-
-    this.person = this.person;
-    this.prsnName = this.person.getName;
-    //console.log(tmp.message);
-
-    //console.log(String(data.name));
-  }
+  ngOnInit() {}
 }

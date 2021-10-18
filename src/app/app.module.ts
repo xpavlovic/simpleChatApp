@@ -8,6 +8,7 @@ import { PersonComponent } from './person/person.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { PersonData } from './personData';
+import { MessageService } from './message.service';
 
 @NgModule({
   declarations: [AppComponent, PersonComponent],
@@ -19,7 +20,7 @@ import { PersonData } from './personData';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
